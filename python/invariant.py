@@ -34,5 +34,7 @@ if __name__ == "__main__":
     invariant_img = rgb2ii(transformed_img)
     invariant_img /= np.amax(invariant_img)
 
+    cv2.imshow("RGB Image", source_img)
+    cv2.waitKey()
     cv2.imshow("Illumination Invariant", invariant_img)
     cv2.waitKey()
