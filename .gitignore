@@ -12,6 +12,9 @@
 .idea/vcs.xml
 .idea/jsLibraryMappings.xml
 .idea/*.iml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/webResources.xml
 
 # Sensitive or high-churn files:
 .idea/dataSources.ids
