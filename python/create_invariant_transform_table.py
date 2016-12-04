@@ -33,21 +33,41 @@ def ycbcr2rgb(y, cb, cr, print_output=False):
     return r, g, b
 
 
-def main():
-    lookup_table = np.zeros((256, 256, 256))
-    alpha = 0.333
+def write_lut(alpha, output_file):
     color_range = list(range(256))
 
-    for y in color_range:
-        print('Loop: Current Y - {}'.format(y))
-        for cb in color_range:
-            for cr in color_range:
-                r, g, b = ycbcr2rgb(y, cb, cr)
-                if r < 0 or g < 0 or b < 0:
-                    continue
-                else:
-                    lookup_table[y][cb][cr] = rgb2ii(alpha, r, g, b)
+    with open(output_file, 'w') as f:
+        f.write('static const uint8_t ycbcr2ii[256][256][256] = {\n')
+        for i, y in enumerate(color_range):
+            f.write('\t{\n')
+            print('Loop: Current Y - {}'.format(y))
+            for j, cb in enumerate(color_range):
+                f.write('\t\t{ ')
+                for k, cr in enumerate(color_range):
+                    r, g, b = ycbcr2rgb(y, cb, cr)
+                    if r < 0 or g < 0 or b < 0:
+                        f.write('0')
+                    else:
+                        f.write(str(rgb2ii(alpha, r, g, b)))
+                    if k < len(color_range) - 1:
+                        f.write(', ')
 
+                if j < len(color_range) - 1:
+                    f.write('},\n')
+                else:
+                    f.write('}\n')
+
+            if i < len(color_range) - 1:
+                f.write('\t},\n')
+            else:
+                f.write('\t}\n')
+        f.write('};\n')
+
+
+def main():
+    alpha = 0.333
+    out_file = 'LUT.hpp'
+    write_lut(alpha, out_file)
 
 if __name__ == '__main__':
     main()
