@@ -5,5 +5,5 @@ This is just a **quick implementation and test of a formula** to obtain illumina
 
 <div align="center">
   <br>
-  <img src="./example.svg" alt="Example Image" width="800">
+  <img src="./example.png" alt="Example Image" width="800">
 </div>
