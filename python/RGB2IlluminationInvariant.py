@@ -11,11 +11,13 @@ def rgb2ii(img, alpha):
 
     return ii_image
 
+
 if __name__ == "__main__":
 
-    source_img = cv2.imread("../images/leipzsch.png", cv2.CV_LOAD_IMAGE_UNCHANGED)
+    source_img = cv2.imread("../test-images/leipzig.png",
+                            cv2.CV_LOAD_IMAGE_UNCHANGED)
 
-    a = 0.333 # Camera alpha
+    a = 0.333  # Camera alpha
     invariant_img = rgb2ii(source_img, a)
     invariant_img /= np.amax(invariant_img)
 
